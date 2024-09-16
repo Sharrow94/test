@@ -1,4 +1,5 @@
 function createModal() {
+    console.log('custom modal');
     const modal = document.createElement('div');
     modal.id = 'myModal';
     modal.style.display = 'none'; 
@@ -34,6 +35,7 @@ function createModal() {
     document.body.appendChild(modal);
 
     document.getElementById('3f8935f0-243e-44d2-816e-8c0381200882-cardContent').addEventListener('click', function() {
+        console.log('custom modal CLICK');
         modal.style.display = 'block';
 
         const iframe = document.createElement('iframe');
