@@ -34,7 +34,7 @@ function createModal() {
     modal.appendChild(modalContent);
     document.body.appendChild(modal);
 
-    document.getElementById('3f8935f0-243e-44d2-816e-8c0381200882-cardContent').addEventListener('click', function() {
+    document.getElementById('3f8935f0-243e-44d2-816e-8c0381200882-contentTitle').addEventListener('click', function() {
         console.log('custom modal CLICK');
         modal.style.display = 'block';
 
@@ -75,3 +75,5 @@ function createModal() {
 }
 
 window.onload = createModal;
+console.log('custom modal END');
+
