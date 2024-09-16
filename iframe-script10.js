@@ -1,5 +1,4 @@
 function createModal() {
-
     console.log('1');
     const modal = document.createElement('div');
     modal.id = 'myModal';
@@ -39,6 +38,7 @@ function createModal() {
     modal.style.display = 'block';
 
     const iframe = document.createElement('iframe');
+    iframe.id = 'iframe';
     iframe.src = 'https://hcm-eu10-sales.hr.cloud.sap/xi/ui/genericobject/pages/mdf/mdf.xhtml?&#t=cust_adamed&n=1&u=adamed';
     iframe.style.width = '100%';
     iframe.style.height = '400px';
@@ -46,24 +46,28 @@ function createModal() {
 
     iframeContainer.appendChild(iframe);
     console.log('2');
+
     const checkIframeLoaded = setInterval(function () {
         try {
             console.log('3');
-            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-            const sidenavElements = iframeDocument.getElementById('shellbarContainer');
-
-            if (sidenavElements.length > 0) {
-                sidenavElements.forEach(function (element) {
+            const iframeElement = document.getElementById('iframe');
+            const iframeDocument = iframeElement.contentDocument || iframeElement.contentWindow.document;
+            console.log(iframeDocument)
+            if (iframeDocument) {
+                console.log('3.14')
+                const sidenavElement = iframeDocument.getElementById('shellbarContainer');
+                
+                if (sidenavElement) {
                     console.log('4');
-                    element.style.display = 'none'; 
-                    element.innerHTML='';
-                });
-                clearInterval(checkIframeLoaded);
+                    sidenavElement.style.display = 'none'; 
+                    sidenavElement.innerHTML = '';
+                    clearInterval(checkIframeLoaded);
+                }
             }
         } catch (e) {
             console.log(e);
-         }
-    }, 100);
+        }
+    }, 300);
 
     closeModal.addEventListener('click', function () {
         modal.style.display = 'none';

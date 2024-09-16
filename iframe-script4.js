@@ -1,7 +1,9 @@
+function createModal() {
+
     console.log('custom modal');
     const modal = document.createElement('div');
     modal.id = 'myModal';
-    modal.style.display = 'none'; 
+    modal.style.display = 'none';
     modal.style.position = 'fixed';
     modal.style.zIndex = '1';
     modal.style.left = '0';
@@ -33,42 +35,43 @@
     modal.appendChild(modalContent);
     document.body.appendChild(modal);
 
-        console.log('custom modal CLICK');
-        modal.style.display = 'block';
+    console.log('custom modal CLICK');
+    modal.style.display = 'block';
 
-        const iframe = document.createElement('iframe');
-        iframe.src = 'https://hcm-eu10-sales.hr.cloud.sap/xi/ui/genericobject/pages/mdf/mdf.xhtml?&#t=cust_adamed&n=1&u=adamed'; 
-        iframe.style.width = '100%';
-        iframe.style.height = '400px';
-        iframe.style.border = 'none';
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://hcm-eu10-sales.hr.cloud.sap/xi/ui/genericobject/pages/mdf/mdf.xhtml?&#t=cust_adamed&n=1&u=adamed';
+    iframe.style.width = '100%';
+    iframe.style.height = '400px';
+    iframe.style.border = 'none';
 
-        iframeContainer.appendChild(iframe);
+    iframeContainer.appendChild(iframe);
 
-        const checkIframeLoaded = setInterval(function() {
-            try {
-                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                const sidenavElements = iframeDocument.getElementById('renderTopNavFixedWidthV12');
+    const checkIframeLoaded = setInterval(function () {
+        try {
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            const sidenavElements = iframeDocument.getElementById('renderTopNavFixedWidthV12');
 
-                if (sidenavElements.length > 0) {
-                    sidenavElements.forEach(function(element) {
-                        element.style.display = 'none'; 
-                    });
-                    clearInterval(checkIframeLoaded);
-                }
-            } catch (e) {}
-        }, 100); 
+            if (sidenavElements.length > 0) {
+                sidenavElements.forEach(function (element) {
+                    element.style.display = 'none'; 
+                });
+                clearInterval(checkIframeLoaded);
+            }
+        } catch (e) { }
+    }, 100);
 
-    closeModal.addEventListener('click', function() {
+    closeModal.addEventListener('click', function () {
         modal.style.display = 'none';
-        iframeContainer.innerHTML = ''; 
+        iframeContainer.innerHTML = '';
     });
 
-    window.addEventListener('click', function(event) {
+    window.addEventListener('click', function (event) {
         if (event.target === modal) {
             modal.style.display = 'none';
-            iframeContainer.innerHTML = ''; 
+            iframeContainer.innerHTML = '';
         }
     });
-
+}
+createModal();
 console.log('custom modal END');
 

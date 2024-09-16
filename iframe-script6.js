@@ -39,6 +39,7 @@ function createModal() {
     modal.style.display = 'block';
 
     const iframe = document.createElement('iframe');
+    iframe.id = 'iframe';
     iframe.src = 'https://hcm-eu10-sales.hr.cloud.sap/xi/ui/genericobject/pages/mdf/mdf.xhtml?&#t=cust_adamed&n=1&u=adamed';
     iframe.style.width = '100%';
     iframe.style.height = '400px';
@@ -49,10 +50,11 @@ function createModal() {
     const checkIframeLoaded = setInterval(function () {
         try {
             console.log('3');
-            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            const iframeDocument = document.getElementById('iframe')
+            console.log(iframeDocument.innerHTML)
             const sidenavElements = iframeDocument.getElementById('shellbarContainer');
 
-            if (sidenavElements.length > 0) {
+            if (sidenavElements?.length > 0) {
                 sidenavElements.forEach(function (element) {
                     console.log('4');
                     element.style.display = 'none'; 
