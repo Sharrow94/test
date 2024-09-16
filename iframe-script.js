@@ -33,11 +33,11 @@ function createModal() {
     modal.appendChild(modalContent);
     document.body.appendChild(modal);
 
-    document.getElementById('openModal').addEventListener('click', function() {
+    document.getElementById('3f8935f0-243e-44d2-816e-8c0381200882-cardContent').addEventListener('click', function() {
         modal.style.display = 'block';
 
         const iframe = document.createElement('iframe');
-        iframe.src = './second.html'; 
+        iframe.src = 'https://hcm-eu10-sales.hr.cloud.sap/xi/ui/genericobject/pages/mdf/mdf.xhtml?&#t=cust_adamed&n=1&u=adamed'; 
         iframe.style.width = '100%';
         iframe.style.height = '400px';
         iframe.style.border = 'none';
@@ -47,7 +47,7 @@ function createModal() {
         const checkIframeLoaded = setInterval(function() {
             try {
                 const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                const sidenavElements = iframeDocument.querySelectorAll('.app_sidenav');
+                const sidenavElements = iframeDocument.getElementById('renderTopNavFixedWidthV12');
 
                 if (sidenavElements.length > 0) {
                     sidenavElements.forEach(function(element) {
