@@ -105,17 +105,23 @@ function createModal() {
         }
     });
 
-    document.body.addEventListener('click', (event) => {
-        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        const acceptDialog = iframeDocument.getElementById('630__dialogBox');
-        console.log("listener")
-        console.log(acceptDialog !== null,event.target,event.target.classList.contains('globalPrimaryButton'))
-        console.log(event.target.id)
-        if (acceptDialog !== null && event.target && event.target.classList.contains('globalPrimaryButton')) {
-            console.log('3.14')
-            modal.style.display = 'none';
-            iframeContainer.innerHTML = '';
+    iframe.onload = function () {
+        try {
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            if (iframeDocument) {
+                const acceptDialog = iframeDocument.getElementById('630__dialogBox');
+                console.log("listener")
+                console.log(acceptDialog !== null,event.target,event.target.classList.contains('globalPrimaryButton'))
+                console.log(event.target.id)
+                if (acceptDialog !== null && event.target && event.target.classList.contains('globalPrimaryButton')) {
+                    console.log('3.14')
+                    modal.style.display = 'none';
+                    iframeContainer.innerHTML = '';
+                }
+            }
+        } catch (e) {
+            console.log('Find accept btn:', e);
         }
-    });
+    };
 }
 createModal();
