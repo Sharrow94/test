@@ -119,8 +119,8 @@ function createModal() {
                         modal.style.display = 'none';
                         iframeContainer.innerHTML = '';
                     }
-                    clearInterval(addListnerForAcceptBtn);
                 });
+                clearInterval(addListnerForAcceptBtn);
             }
         } catch (e) {
             console.log('Cannot add listener', e);
