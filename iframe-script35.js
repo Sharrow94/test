@@ -118,7 +118,7 @@ function createModal() {
             }
         } catch (e) {
             console.error('Cannot add listener', e);
-            clearInterval(addListnerForAcceptBtn); 
+            clearInterval(addListnerForAcceptBtn);
         }
     }, 300);
 }
