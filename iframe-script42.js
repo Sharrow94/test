@@ -86,6 +86,7 @@ function adjustIframeSize(iframe) {
 }
 
 function checkAndHideIframeElements(iframe, background, iframeContainer) {
+    console.log("refreshed")
     const checkIframeLoaded = setInterval(() => {
         try {
             const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
