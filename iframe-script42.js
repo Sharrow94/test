@@ -4,7 +4,7 @@ function createModal() {
     const modalContent = createModalContent();
     const closeModal = createCloseModal();
     const iframeContainer = createIframeContainer();
-    const iframe = createIframe('https://hcm-eu10-sales.hr.cloud.sap/xi/ui/genericobject/pages/mdf/mdf.xhtml?&#t=cust_adamed&n=1&u=adamed');
+    const iframe = createIframe('https://hcm12preview.sapsf.eu/xi/ui/genericobject/pages/mdf/mdf.xhtml?&#t=cust_etr&n=1');
 
     //build html
     document.body.appendChild(background);
@@ -67,7 +67,7 @@ function createIframeContainer() {
 function createIframe(src) {
     const iframe = document.createElement('iframe');
     iframe.id = 'iframe';
-    iframe.src = src; // Przekazujemy źródło jako parametr
+    iframe.src = src;
     iframe.style.width = '100%';
     iframe.style.height = '500px';
     iframe.style.border = 'none';
@@ -79,8 +79,8 @@ function adjustIframeSize(iframe) {
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
         if (iframeDocument) {
             const contentWidth = iframeDocument.body.scrollWidth;
-            iframe.style.width = contentWidth + 'px';
-            modalContent.style.width = contentWidth + 'px';
+            // iframe.style.width = contentWidth + 'px';
+            // modalContent.style.width = contentWidth + 'px';
         }
     } catch (e) {
         console.error('Error adjusting iframe size:', e);
@@ -97,9 +97,10 @@ function checkAndHideIframeElements(iframe, background, iframeContainer) {
                 const adminBreadcrumbs = iframeDocument.getElementById('admin-breadcrums');
                 const metaDataHeader = iframeDocument.getElementById('4__metaDataHeader');
                 const searchBarContainer = iframeDocument.getElementById('4__searchBarContainer');
+                const header = iframeDocument.getElementById('globalHeaderFullWidthBackground');
 
                 // Hide elements if they exist
-                [topNav, adminBreadcrumbs, metaDataHeader, searchBarContainer].forEach(el => {
+                [header,topNav, adminBreadcrumbs, metaDataHeader, searchBarContainer].forEach(el => {
                     if (el) el.style.display = 'none';
                 });
 
@@ -128,11 +129,12 @@ function setupAcceptButtonListener(iframe, background, iframeContainer) {
     const checkButtonListeners = setInterval(() => {
         try {
             const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-            if (iframeDocument && iframeDocument.getElementById('335__dialogBox')) {
-                const buttons = iframeDocument.querySelectorAll('.globalPrimaryButton');
+            const dialogs=iframeDocument.querySelectorAll('.dialogBoxWrapper');
+            if (iframeDocument && dialogs.length>0) {
+                const dialog=dialogs[0].querySelectorAll('.globalPrimaryButton');
+                const buttons = dialog.querySelectorAll('.globalPrimaryButton');
                 if (buttons.length > 0) {
                     addClickListenerToButtons(buttons, background, iframeContainer);
-                    clearInterval(checkButtonListeners); // Clear interval once listeners are added
                 }
             }
         } catch (e) {
