@@ -96,7 +96,6 @@ function checkAndHideIframeElements(iframe, background, iframeContainer) {
                 const metaDataHeader = iframeDocument.getElementById('4__metaDataHeader');
                 const searchBarContainer = iframeDocument.getElementById('4__searchBarContainer');
                 const header = iframeDocument.getElementById('globalHeaderFullWidthBackground');
-                console.log("its me")
                 // Hide elements if they exist
                 [header,topNav, adminBreadcrumbs, metaDataHeader, searchBarContainer].forEach(el => {
                     if (el) el.style.display = 'none';
