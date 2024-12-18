@@ -79,8 +79,6 @@ function adjustIframeSize(iframe) {
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
         if (iframeDocument) {
             const contentWidth = iframeDocument.body.scrollWidth;
-            // iframe.style.width = contentWidth + 'px';
-            // modalContent.style.width = contentWidth + 'px';
         }
     } catch (e) {
         console.error('Error adjusting iframe size:', e);
@@ -98,7 +96,7 @@ function checkAndHideIframeElements(iframe, background, iframeContainer) {
                 const metaDataHeader = iframeDocument.getElementById('4__metaDataHeader');
                 const searchBarContainer = iframeDocument.getElementById('4__searchBarContainer');
                 const header = iframeDocument.getElementById('globalHeaderFullWidthBackground');
-
+                console.log("its me")
                 // Hide elements if they exist
                 [header,topNav, adminBreadcrumbs, metaDataHeader, searchBarContainer].forEach(el => {
                     if (el) el.style.display = 'none';
@@ -147,6 +145,30 @@ function setupAcceptButtonListener(iframe, background, iframeContainer) {
 function addClickListenerToButtons(buttons, background, iframeContainer) {
     buttons.forEach(button => {
         button.addEventListener('click', () => handleCloseModalClick(background, iframeContainer));
+    });
+
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach(mutation => {
+            // Jeśli dynamicznie dodane elementy pasują do kryteriów, usuń je
+            removeElements('.ads'); // Elementy z klasą 'ads'
+            removeElements('[data-role="popup"]'); // Elementy z atrybutem 'data-role="popup"'
+
+            // Obsługa dynamicznych przycisków, np. "Anuluj"
+            const cancelButton = Array.from(iframeDocument.querySelectorAll('button'))
+                .find(button => button.innerText.includes('Anuluj'));
+            if (cancelButton) {
+                cancelButton.addEventListener('click', () => {
+                    document.body.removeChild(iframe); // Zamknięcie iframe
+                    alert('Iframe zamknięty!');
+                });
+            }
+        });
+    });
+
+    // Rozpocznij obserwowanie dokumentu iframe
+    observer.observe(iframeDocument.body, {
+        childList: true, // Obserwuj dodawanie/usuwanie elementów
+        subtree: true    // Obserwuj także zmiany w poddrzewach
     });
 }
 
